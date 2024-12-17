@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+/* master.css
+**************************************************************************************/
+
+
+/* import base
+------------------------------------------------------------ */
+@import "base/default.css";
+@import "base/frame.css";
+@import "base/header.css";
+@import "base/footer.css";
+@import "base/main.css";
+@import "base/lnavi.css";
+
+/* import category
+------------------------------------------------------------ */
+@import "category/home.css";
+@import "category/sitemap.css";
+@import "category/news.css";
+@import "category/blog.css";
+@import "category/under-1col.css";
+
+/* import lightbox
+------------------------------------------------------------ */
+@import "base/lightbox.css";
+
+/* import partial
+------------------------------------------------------------ */
+@import "parts/mainvisual.css";
+@import "parts/sp-header-menu2.css";
+@import "parts/under-category-image.css";
+
+@import "parts/html-parts.css";
+
+/* import fonts
+------------------------------------------------------------ */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
