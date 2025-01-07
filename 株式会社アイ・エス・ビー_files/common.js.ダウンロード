@@ -1,0 +1,112 @@
+document.addEventListener("DOMContentLoaded", function() {
+	$(".back_top").css("display", "none");
+	var ctrl = 300;
+	var n = 1150;
+	var w = window.innerWidth;
+
+	$(window).on('load resize', function() {
+			var w = window.innerWidth;
+			$("main, footer, #menu i:first-child, nav ul#nav-main li span i:first-child").css("display", "block");
+			$("#menu i:nth-child(2), nav ul#nav-main li span i:nth-child(2)").css("display", "none");
+			if (w < n) {
+					$("nav, nav ul#nav-main li div").css("display", "none");
+			} else {
+					$("nav").css("display", "");
+					// 以下のブロックでPCの場合にメニューのホバーアニメーションを無効にします
+					$("nav ul#nav-main li").hover(function() {
+							$("div", this).stop().show(); // アニメーションを無効にして表示
+					}, function() {
+							$("div", this).hide(); // アニメーションを無効にして非表示
+					});
+			}
+	});
+
+	$("#menu").click(function() {
+			$("main, section, footer, nav").fadeToggle(ctrl);
+			$("#menu i").toggle();
+			return false;
+	});
+	$("nav ul#nav-main li .sp_slide").click(function() {
+		$(this).siblings("div").slideToggle(ctrl);
+		$(this).siblings("span").children("i").toggle();
+		return false;
+});
+	$("nav ul#nav-main li span").click(function() {
+			$(this).next("div").slideToggle(ctrl);
+			$("i", this).toggle();
+			return false;
+	});
+
+	
+
+	$("nav ul.li-tab li a").click(function() {
+			var activelist = "#li-switch-"+$("nav ul.li-tab li a").index(this);
+			$("nav ul.li-tab li a").removeClass("active");
+			$(this).addClass("active");
+			setTimeout(function() {
+					$(".li").fadeOut();
+					setTimeout(function() {
+							$(activelist).fadeIn();
+					}, 100);
+			}, 100);
+	});
+
+	$(window).scroll(function() {
+			if ($(this).scrollTop() < 500) {
+					$(".back_top").fadeOut(ctrl);
+			} else {
+					$(".back_top").fadeIn(ctrl);
+			}
+	});
+
+	$("a[href^=#]").click(function() {
+			var speed = 500;
+			var href= $(this).attr("href");
+			var target = $(href == "#" || href == "" ? "html" : href);
+			if (ua.indexOf('iPhone') > 0 || ua.indexOf('Android') > 0 || ua.indexOf('Mobile') > 0 || ua.indexOf('iPad') > 0 && ua.indexOf('Android') > 0) {
+					var position = target.offset().top-100;
+			} else {
+					var position = target.offset().top-140;
+			}
+			$("html, body").animate({
+					scrollTop:position
+			}, speed, "swing");
+			return false;
+	});
+
+	$(".back_top a").click(function() {
+			$("body,html").animate({
+					scrollTop: 0
+			}, ctrl);
+	});
+
+	$("#change-year select").change(function() {
+			window.location.href = $(this).val();
+	});
+
+	// Formのselect要素を選択
+	// パラメータを取得する
+	var params = getParameter();
+	$("#inquiry").val('modalshift');
+	if(params['cc']!==""){
+			$("#inquiry").val(params['cc']);
+	}
+
+	function getParameter(){
+			var paramsArray = [];
+			var url = location.href;
+			parameters = url.split("#");
+			if( parameters.length > 1 ) {
+					url = parameters[0];
+			}
+			parameters = url.split("?");
+			if( parameters.length > 1 ) {
+					var params = parameters[1].split("&amp;");
+					for ( i = 0; i < params.length; i++ ) {
+							var paramItem = params[i].split("=");
+							paramsArray[paramItem[0]] = paramItem[1];
+					}
+			}
+			return paramsArray;
+	};
+});
